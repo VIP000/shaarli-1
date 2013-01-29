@@ -73,7 +73,7 @@ h1 { font-size:20pt; font-weight:bold; font-style:italic; margin-bottom:20px; }
 
 
 #pageheader #logo{
-background-image: url('../images/logo.png');
+background-image: url('../../images/logo.png');
 background-repeat: no-repeat;
 float:left;
 margin:0 10px 0 10px;
@@ -95,7 +95,7 @@ cursor:pointer;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 	width:auto;
 	padding:0 10px 5px 10px;
-	margin: auto; 
+	margin: auto;
 }
 
 #pageheader a
@@ -210,13 +210,13 @@ cursor:pointer;
 	background: #E9FFCE;
 }
 */
-#linklist li.private { background: url('../images/private.png') no-repeat 10px center; padding-left:60px; }
+#linklist li.private { background: url('../../images/private.png') no-repeat 10px center; padding-left:60px; }
 .private  .linktitle a {color:#969696;}
 .linktitle { font-size:14pt; font-weight:bold; }
 .linktitle a { text-decoration: none; color:#80AD48; }
 .linktitle a:hover { color:#F57900; }
 .linkdate { font-size:8pt; color:#888; }
-.linkdate a { background-image:url('../images/calendar.png');padding:2px 0 3px 20px;background-repeat:no-repeat;text-decoration: none; color:#E28E3F;  }
+.linkdate a { background-image:url('../../images/calendar.png');padding:2px 0 3px 20px;background-repeat:no-repeat;text-decoration: none; color:#E28E3F;  }
 .linkdate a:hover { color: #F57900 }
 .linkurl { font-size:8pt; color:#4BAA74; }
 .linkdescription { color:#000; margin-top:0; margin-bottom:12px; font-weight:normal; max-height:400px; overflow:auto; }
@@ -238,7 +238,7 @@ font-size:9pt;
 	height:20px;
 	border-radius: 3px 3px 3px 3px;
 	cursor:pointer;
-	background-image:url('../images/tag_blue.png');
+	background-image:url('../../images/tag_blue.png');
 	background-repeat:no-repeat;
 	background-position:3px center;
 	background-color:#ffffff;
@@ -288,7 +288,7 @@ font-size:9pt;
   background-color: transparent;
   background-color: rgba(0, 0, 0, 0.4);  /* FF3+, Saf3+, Opera 10.10+, Chrome, IE9 */
             filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000,endColorstr=#66000000); /* IE6IE9 */
-text-shadow:2px 2px 1px #000000;    
+text-shadow:2px 2px 1px #000000;
 }
 
 /* Minimal customisation for jQuery widgets */
@@ -319,12 +319,12 @@ box-shadow:2px 2px 20px 2px #333333;
 
 div.daily
 {
-    font-family: Georgia, 'DejaVu Serif', Norasi, serif; 
+    font-family: Georgia, 'DejaVu Serif', Norasi, serif;
     background-color: #E6D6BE;
     /* Background paper texture by BashCorpo:
        http://www.bashcorpo.dk/textures.php
        http://bashcorpo.deviantart.com/art/Grungy-paper-texture-v-5-22966998  */
-    background-image: url("../images/Paper_texture_v5_by_bashcorpo_w1000.jpg");
+    background-image: url("../../images/Paper_texture_v5_by_bashcorpo_w1000.jpg");
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -338,7 +338,7 @@ div.daily
 #daily_col3 { float:left;position:relative; width:33%;}
 
 div.dailyAbout
-{ 
+{
     float:left;
     border: 1px solid black;
     font-size: 8pt;
@@ -346,21 +346,21 @@ div.dailyAbout
     left:10px;
     top: 15px;
     padding: 5px 5px 5px 5px;
-    text-align:center; 
+    text-align:center;
 }
 div.dailyAbout  a { color: #890500; }
 div.dailyTitle
- { 
+ {
      font-weight: bold;
      font-size: 44pt;
-     text-align:center; 
+     text-align:center;
      padding:10px 20px 0px 20px;
 }
 div.dailyDate
- { 
+ {
      font-size: 12pt;
-     font-weight:bold; 
-     text-align:center; 
+     font-weight:bold;
+     text-align:center;
      padding:0px 20px 30px 20px;
 }
 
@@ -374,19 +374,19 @@ div.dailyEntry
 div.dailyEntry  a { text-decoration:none; color: #890500; }
 div.dailyEntryTags { font-size:7.75pt;  }
 div.dailyEntryTitle { font-size:18pt; font-weight:bold;}
-div.dailyEntryThumbnail 
-{ 
-    width:100%; 
-    text-align:center; 
-    background-color:rgb(128,128,128); 
-    background:url(../images/50pc_transparent.png);
+div.dailyEntryThumbnail
+{
+    width:100%;
+    text-align:center;
+    background-color:rgb(128,128,128);
+    background:url(../../images/50pc_transparent.png);
     padding:4px 0px 2px 0px;
 }
 div.dailyEntryDescription
-{ 
+{
     margin-top: 10px;
-    margin-bottom: 30px; 
-    text-align:justify; 
+    margin-bottom: 30px;
+    text-align:justify;
     overflow:auto;
 }
 
@@ -396,7 +396,7 @@ div.dailyEntryDescription
 }
 
 /* For lazy images loading in picture wall.
-   using http://www.appelsiini.net/projects/lazyload 
+   using http://www.appelsiini.net/projects/lazyload
  */
 .lazyimage { display:none; }
 
@@ -445,5 +445,5 @@ div.dailyDate  {  font-size: 11pt;padding:0px; display:block; }
 div.dailyEntryTitle { font-size:16pt; font-weight:bold;}
 div.dailyEntryDescription { font-size:10pt; }
 
-} 
+}
 
