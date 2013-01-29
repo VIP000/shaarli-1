@@ -1,0 +1,7 @@
+*~
+# Data directory, config and database.
+data
+# Thumbnails cache.
+cache
+# Temporary directory for RainTPL compiled templates.
+tmp
