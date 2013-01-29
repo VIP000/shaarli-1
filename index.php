@@ -2067,16 +2067,21 @@ function processWS()
 // Requires some $GLOBALS to be set (login,hash,salt,title).
 // If the config file cannot be saved, an error message is dislayed and the user is redirected to "Tools" menu.
 // (otherwise, the function simply returns.)
-function writeConfig()
-{
-    if (is_file($GLOBALS['config']['CONFIG_FILE']) && !isLoggedIn()) die('You are not authorized to alter config.'); // Only logged in user can alter config.
+function writeConfig() {
+    if (is_file($GLOBALS['config']['CONFIG_FILE']) && !isLoggedIn())
+        die('You are not authorized to alter config.'); // Only logged in user can alter config.
     if (empty($GLOBALS['redirector'])) $GLOBALS['redirector']='';
     if (empty($GLOBALS['disablesessionprotection'])) $GLOBALS['disablesessionprotection']=false;
-    $config='<?php $GLOBALS[\'login\']='.var_export($GLOBALS['login'],true).'; $GLOBALS[\'hash\']='.var_export($GLOBALS['hash'],true).'; $GLOBALS[\'salt\']='.var_export($GLOBALS['salt'],true).'; ';
-    $config .='$GLOBALS[\'timezone\']='.var_export($GLOBALS['timezone'],true).'; date_default_timezone_set('.var_export($GLOBALS['timezone'],true).'); $GLOBALS[\'title\']='.var_export($GLOBALS['title'],true).';';
-    $config .= '$GLOBALS[\'redirector\']='.var_export($GLOBALS['redirector'],true).'; ';
-    $config .= '$GLOBALS[\'disablesessionprotection\']='.var_export($GLOBALS['disablesessionprotection'],true).'; ';
-    $config .= ' ?>';
+    $config  = '<?php'."\n";
+    $config .= '$GLOBALS[\'login\']='.var_export($GLOBALS['login'],true).";\n";
+    $config .= '$GLOBALS[\'hash\']='.var_export($GLOBALS['hash'],true).";\n";
+    $config .= '$GLOBALS[\'salt\']='.var_export($GLOBALS['salt'],true).";\n";
+    $config .= '$GLOBALS[\'timezone\']='.var_export($GLOBALS['timezone'],true).";\n";
+    $config .= 'date_default_timezone_set('.var_export($GLOBALS['timezone'],true).')'.";\n";
+    $config .= '$GLOBALS[\'title\']='.var_export($GLOBALS['title'],true).";\n";
+    $config .= '$GLOBALS[\'redirector\']='.var_export($GLOBALS['redirector'],true).";\n";
+    $config .= '$GLOBALS[\'disablesessionprotection\']='.var_export($GLOBALS['disablesessionprotection'],true).";\n";
+    $config .= '?>';
     if (!file_put_contents($GLOBALS['config']['CONFIG_FILE'],$config) || strcmp(file_get_contents($GLOBALS['config']['CONFIG_FILE']),$config)!=0)
     {
         echo '<script language="JavaScript">alert("Shaarli could not create the config file. Please make sure Shaarli has the right to write in the folder is it installed in.");document.location=\'?\';</script>';
