@@ -5,6 +5,7 @@
 // Licence: http://www.opensource.org/licenses/zlib-license.php
 // Requires: php 5.1.x  (but autocomplete fields will only work if you have php 5.2.x)
 // -----------------------------------------------------------------------------------------------
+
 // Hardcoded parameter (These parameters can be overwritten by creating the file /config/options.php)
 $GLOBALS['config']['DATADIR'] = 'data'; // Data subdirectory
 $GLOBALS['config']['CONFIG_FILE'] = $GLOBALS['config']['DATADIR'].'/config.php'; // Configuration file (user login/password)
@@ -28,6 +29,14 @@ $GLOBALS['config']['UPDATECHECK_INTERVAL'] = 86400 ; // Updates check frequency 
 
 // Optionnal config file.
 if (is_file($GLOBALS['config']['DATADIR'].'/options.php')) require($GLOBALS['config']['DATADIR'].'/options.php');
+
+// Session management
+define('INACTIVITY_TIMEOUT',3600); // (in seconds). If the user does not access any page within this time, his/her session is considered expired.
+ini_set('session.use_cookies', 1);       // Use cookies to store session.
+// ini_set('session.use_only_cookies', 1);  // Force cookies for session (phpsessionID forbidden in URL)
+ini_set('session.use_trans_sid', false); // Prevent php to use sessionID in URL if cookies are disabled.
+session_name('shaarli');
+session_start();
 
 include "inc/core.php";
 include "inc/storage.php";
@@ -62,8 +71,7 @@ ob_start();  // Output buffering for the page cache.
 
 
 // In case stupid admin has left magic_quotes enabled in php.ini:
-if (get_magic_quotes_gpc())
-{
+if (get_magic_quotes_gpc()) {
     function stripslashes_deep($value) { $value = is_array($value) ? array_map('stripslashes_deep', $value) : stripslashes($value); return $value; }
     $_POST = array_map('stripslashes_deep', $_POST);
     $_GET = array_map('stripslashes_deep', $_GET);
@@ -100,53 +108,52 @@ autoLocale(); // Sniff browser language and set date format accordingly.
 header('Content-Type: text/html; charset=utf-8'); // We use UTF-8 for proper international characters handling.
 
 // ------------------------------------------------------------------------------------------
-// Session management
-define('INACTIVITY_TIMEOUT',3600); // (in seconds). If the user does not access any page within this time, his/her session is considered expired.
-ini_set('session.use_cookies', 1);       // Use cookies to store session.
-ini_set('session.use_only_cookies', 1);  // Force cookies for session (phpsessionID forbidden in URL)
-ini_set('session.use_trans_sid', false); // Prevent php to use sessionID in URL if cookies are disabled.
-session_name('shaarli');
-session_start();
 
 // ------------------------------------------------------------------------------------------
 // Brute force protection system
 // Several consecutive failed logins will ban the IP address for 30 minutes.
-if (!is_file($GLOBALS['config']['IPBANS_FILENAME'])) file_put_contents($GLOBALS['config']['IPBANS_FILENAME'], "<?php\n\$GLOBALS['IPBANS']=".var_export(array('FAILURES'=>array(),'BANS'=>array()),true).";\n?>");
+if (!is_file($GLOBALS['config']['IPBANS_FILENAME'])) {
+    file_put_contents($GLOBALS['config']['IPBANS_FILENAME'], "<?php\n\$GLOBALS['IPBANS']=".var_export(array('FAILURES'=>array(),'BANS'=>array()),true).";\n?>");
+}
 include $GLOBALS['config']['IPBANS_FILENAME'];
 
 // ------------------------------------------------------------------------------------------
 // Process login form: Check if login/password is correct.
 if (isset($_POST['login']))
 {
-    if (!ban_canLogin()) die('I said: NO. You are banned for the moment. Go away.');
-    if (isset($_POST['password']) && tokenOk($_POST['token']) && (check_auth($_POST['login'], $_POST['password'])))
-    {   // Login/password is ok.
+    if (!ban_canLogin()) {
+        die('I said: NO. You are banned for the moment. Go away.');
+    }
+
+    if (isset($_POST['password']) && tokenOk($_POST['token']) && (check_auth($_POST['login'], $_POST['password']))) {
+        // Login/password is ok.
         ban_loginOk();
         // If user wants to keep the session cookie even after the browser closes:
+        $cookie_path = dirname($_SERVER["SCRIPT_NAME"]);
+        if (substr($cookie_path, -1) !== '/') {
+            $cookie_path .= '/';
+        }
         if (!empty($_POST['longlastingsession']))
         {
             $_SESSION['longlastingsession']=31536000;  // (31536000 seconds = 1 year)
             $_SESSION['expires_on']=time()+$_SESSION['longlastingsession'];  // Set session expiration on server-side.
-            session_set_cookie_params($_SESSION['longlastingsession'],dirname($_SERVER["SCRIPT_NAME"]).'/'); // Set session cookie expiration on client side
-            // Note: Never forget the trailing slash on the cookie path !
-            session_regenerate_id(true);  // Send cookie with new expiration date to browser.
+            session_set_cookie_params($_SESSION['longlastingsession'], $cookie_path); // Set session cookie expiration on client side
+        } else {
+            // Standard session expiration (=when browser closes)
+            session_set_cookie_params(0, $cookie_path); // 0 means "When browser closes"
         }
-        else // Standard session expiration (=when browser closes)
-        {
-            session_set_cookie_params(0,dirname($_SERVER["SCRIPT_NAME"]).'/'); // 0 means "When browser closes"
-            session_regenerate_id(true);
-        }
+        session_regenerate_id(true);
         // Optional redirect after login:
-        if (isset($_GET['post'])) { header('Location: ?post='.urlencode($_GET['post']).(!empty($_GET['title'])?'&title='.urlencode($_GET['title']):'').(!empty($_GET['source'])?'&source='.urlencode($_GET['source']):'')); exit; }
-        if (isset($_POST['returnurl']))
-        {
+        if (isset($_GET['post'])) {
+            header('Location: ?post='.urlencode($_GET['post']).(!empty($_GET['title'])?'&title='.urlencode($_GET['title']):'').(!empty($_GET['source'])?'&source='.urlencode($_GET['source']):''));
+            exit;
+        }
+        if (isset($_POST['returnurl'])) {
             if (endsWith($_POST['returnurl'],'?do=login')) { header('Location: ?'); exit; } // Prevent loops over login screen.
             header('Location: '.$_POST['returnurl']); exit;
         }
         header('Location: ?'); exit;
-    }
-    else
-    {
+    } else {
         ban_loginFailed();
         echo '<script language="JavaScript">alert("Wrong login/password.");document.location=\'?do=login\';</script>'; // Redirect to login screen.
         exit;
@@ -160,19 +167,23 @@ if (isset($_SERVER["QUERY_STRING"]) && startswith($_SERVER["QUERY_STRING"],'do=g
 }
 
 if (isset($_SERVER["QUERY_STRING"]) && startswith($_SERVER["QUERY_STRING"],'do=rss')) {
-    showRSS(); exit;
+    showRSS();
+    exit;
 }
 
 if (isset($_SERVER["QUERY_STRING"]) && startswith($_SERVER["QUERY_STRING"],'do=atom')) {
-    showATOM(); exit;
+    showATOM();
+    exit;
 }
 
 if (isset($_SERVER["QUERY_STRING"]) && startswith($_SERVER["QUERY_STRING"],'do=dailyrss')) {
-    showDailyRSS(); exit;
+    showDailyRSS();
+    exit;
 }
 
 if (isset($_SERVER["QUERY_STRING"]) && startswith($_SERVER["QUERY_STRING"],'do=daily')) {
-    showDaily(); exit;
+    showDaily();
+    exit;
 }
 
 // Webservices (for jQuery/jQueryUI)

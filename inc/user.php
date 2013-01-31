@@ -93,12 +93,13 @@ function ban_canLogin()
 // ------------------------------------------------------------------------------------------
 // Token management for XSRF protection
 // Token should be used in any form which acts on data (create,update,delete,import...).
-if (!isset($_SESSION['tokens'])) $_SESSION['tokens']=array();  // Token are attached to the session.
+if (!isset($_SESSION['tokens'])) {
+    $_SESSION['tokens']=array();  // Token are attached to the session.
+}
 
 // Returns a token.
-function getToken()
-{
-    $rnd = sha1(uniqid('',true).'_'.mt_rand());  // We generate a random string.
+function getToken() {
+    $rnd = sha1(uniqid('',true));  // We generate a random string.
     $_SESSION['tokens'][$rnd]=1;  // Store it on the server side.
     return $rnd;
 }
