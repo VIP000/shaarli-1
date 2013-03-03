@@ -37,8 +37,6 @@ $GLOBALS['config']['CACHEDIR'] = 'cache';
 $GLOBALS['config']['PAGECACHE'] = 'pagecache';
 // Enable thumbnail caching. Disable to reduce webspace usage.
 $GLOBALS['config']['ENABLE_LOCALCACHE'] = true;
-// PubSubHubbub support. Put an empty string to disable, or put your hub url here to enable.
-$GLOBALS['config']['PUBSUBHUB_URL'] = '';
 // For updates check of Shaarli.
 $GLOBALS['config']['UPDATECHECK_FILENAME'] = $GLOBALS['config']['DATADIR'].'/lastupdatecheck.txt';
 // Updates check frequency for Shaarli. 86400 seconds=24 hours

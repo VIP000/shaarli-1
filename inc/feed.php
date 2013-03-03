@@ -24,13 +24,6 @@ function showRSS()
     echo '<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">';
     echo '<channel><title>'.htmlspecialchars($GLOBALS['title']).'</title><link>'.$pageaddr.'</link>';
     echo '<description>Shared links</description><language>en-en</language><copyright>'.$pageaddr.'</copyright>'."\n\n";
-    if (!empty($GLOBALS['config']['PUBSUBHUB_URL']))
-    {
-        echo '<!-- PubSubHubbub Discovery -->';
-        echo '<link rel="hub" href="'.htmlspecialchars($GLOBALS['config']['PUBSUBHUB_URL']).'" xmlns="http://www.w3.org/2005/Atom" />';
-        echo '<link rel="self" href="'.htmlspecialchars($pageaddr).'?do=rss" xmlns="http://www.w3.org/2005/Atom" />';
-        echo '<!-- End Of PubSubHubbub Discovery -->';
-    }
     $i=0;
     $keys=array(); foreach($linksToDisplay as $key=>$value) { $keys[]=$key; }  // No, I can't use array_keys().
     while ($i<50 && $i<count($keys))
@@ -105,12 +98,6 @@ function showATOM()
     $feed.='<title>'.htmlspecialchars($GLOBALS['title']).'</title>';
     if (!$GLOBALS['config']['HIDE_TIMESTAMPS'] || isLoggedIn()) $feed.='<updated>'.htmlspecialchars($latestDate).'</updated>';
     $feed.='<link rel="self" href="'.htmlspecialchars(serverUrl().$_SERVER["REQUEST_URI"]).'" />';
-    if (!empty($GLOBALS['config']['PUBSUBHUB_URL']))
-    {
-        $feed.='<!-- PubSubHubbub Discovery -->';
-        $feed.='<link rel="hub" href="'.htmlspecialchars($GLOBALS['config']['PUBSUBHUB_URL']).'" />';
-        $feed.='<!-- End Of PubSubHubbub Discovery -->';
-    }
     $feed.='<author><name>'.htmlspecialchars($pageaddr).'</name><uri>'.htmlspecialchars($pageaddr).'</uri></author>';
     $feed.='<id>'.htmlspecialchars($pageaddr).'</id>'."\n\n"; // Yes, I know I should use a real IRI (RFC3987), but the site URL will do.
     $feed.=$entries;

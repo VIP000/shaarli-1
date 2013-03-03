@@ -152,23 +152,6 @@ function autoLocale()
     setlocale(LC_TIME,$loc);  // LC_TIME = Set local for date/time format only.
 }
 
-// ------------------------------------------------------------------------------------------
-// PubSubHubbub protocol support (if enabled)  [UNTESTED]
-// (Source: http://aldarone.fr/les-flux-rss-shaarli-et-pubsubhubbub/ )
-if (!empty($GLOBALS['config']['PUBSUBHUB_URL'])) include './publisher.php';
-function pubsubhub()
-{
-    if (!empty($GLOBALS['config']['PUBSUBHUB_URL']))
-    {
-       $p = new Publisher($GLOBALS['config']['PUBSUBHUB_URL']);
-       $topic_url = array (
-                       indexUrl().'?do=atom',
-                       indexUrl().'?do=rss'
-                    );
-       $p->publish_update($topic_url);
-    }
-}
-
 // Returns the server URL (including port and http/https), without path.
 // eg. "http://myserver.com:8080"
 // You can append $_SERVER['SCRIPT_NAME'] to get the current script URL.

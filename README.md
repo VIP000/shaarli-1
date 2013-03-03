@@ -28,7 +28,6 @@ Features
 * Permalinks (with QR-Code) for easy reference
 * Tag cloud
 * RSS and ATOM feeds (which can be filtered by tag or text search)
-* PubSubHubbub protocol support
 * Easy backup (Data stored in a single file)
 * Compact storage (1315 links stored in 150 kb)
 * Mobile browsers support
