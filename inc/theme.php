@@ -45,7 +45,7 @@ class pageBuilder
     }
 
     // Render a specific page (using a template).
-    // eg. pb.renderPage('picwall')
+    // eg. pb.renderPage('tagcloud')
     public function renderPage($page)
     {
         if ($this->tpl===false) $this->initialize(); // Lazy initialization
@@ -77,36 +77,6 @@ function renderPage()
         invalidateCaches();
         logout();
         header('Location: ?');
-        exit;
-    }
-
-    // -------- Picture wall
-    if (isset($_SERVER["QUERY_STRING"]) && startswith($_SERVER["QUERY_STRING"],'do=picwall'))
-    {
-        // Optionnaly filter the results:
-        $links=array();
-        if (!empty($_GET['searchterm'])) $links = $LINKSDB->filterFulltext($_GET['searchterm']);
-        elseif (!empty($_GET['searchtags']))   $links = $LINKSDB->filterTags(trim($_GET['searchtags']));
-        else $links = $LINKSDB;
-        $body='';
-        $linksToDisplay=array();
-
-        // Get only links which have a thumbnail.
-        foreach($links as $link)
-        {
-            $permalink='?'.htmlspecialchars(smallhash($link['linkdate']),ENT_QUOTES);
-            $thumb=lazyThumbnail($link['url'],$permalink);
-            if ($thumb!='') // Only output links which have a thumbnail.
-            {
-                $link['thumbnail']=$thumb; // Thumbnail HTML code.
-                $link['permalink']=$permalink;
-                $linksToDisplay[]=$link; // Add to array.
-            }
-        }
-        $PAGE = new pageBuilder;
-        $PAGE->assign('linkcount',count($LINKSDB));
-        $PAGE->assign('linksToDisplay',$linksToDisplay);
-        $PAGE->renderPage('picwall');
         exit;
     }
 
