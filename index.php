@@ -227,16 +227,6 @@ if (isset($_SERVER["QUERY_STRING"]) && startswith($_SERVER["QUERY_STRING"],'do=a
     exit;
 }
 
-if (isset($_SERVER["QUERY_STRING"]) && startswith($_SERVER["QUERY_STRING"],'do=dailyrss')) {
-    showDailyRSS();
-    exit;
-}
-
-if (isset($_SERVER["QUERY_STRING"]) && startswith($_SERVER["QUERY_STRING"],'do=daily')) {
-    showDaily();
-    exit;
-}
-
 // Webservices (for jQuery/jQueryUI)
 if (isset($_SERVER["QUERY_STRING"]) && startswith($_SERVER["QUERY_STRING"],'ws=')) {
     processWS();
