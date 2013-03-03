@@ -58,7 +58,7 @@ $cookie=session_get_cookie_params();
 session_set_cookie_params($cookie['lifetime'],dirname($_SERVER["SCRIPT_NAME"]).'/');
 
 // Shaarli constants.
-define('shaarli_version','0.0.40 beta');
+define('shaarli_version','0.0.40');
 define('shaarli_url', 'https://github.com/kotnik/shaarli');
 define('PHPPREFIX','<?php /* '); // Prefix to encapsulate data in php code.
 define('PHPSUFFIX',' */ ?>'); // Suffix to encapsulate data in php code.
