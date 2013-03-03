@@ -27,7 +27,7 @@ class pageCache
     public function __construct($url,$shouldBeCached)
     {
         $this->url = $url;
-        $this->filename = $GLOBALS['config']['PAGECACHE'].'/'.sha1($url).'.cache';
+        $this->filename = $GLOBALS['config']['CACHEDIR'] . 'page'.'/'.sha1($url).'.cache';
         $this->shouldBeCached = $shouldBeCached;
     }
 
@@ -44,7 +44,7 @@ class pageCache
     public function cache($page)
     {
         if (!$this->shouldBeCached) return;
-        if (!is_dir($GLOBALS['config']['PAGECACHE'])) { mkdir($GLOBALS['config']['PAGECACHE'],0705); chmod($GLOBALS['config']['PAGECACHE'],0705); }
+        if (!is_dir($GLOBALS['config']['CACHEDIR'] . 'page')) { mkdir($GLOBALS['config']['CACHEDIR'] . 'page',0705); chmod($GLOBALS['config']['CACHEDIR'] . 'page',0705); }
         file_put_contents($this->filename,$page);
     }
 
@@ -52,14 +52,14 @@ class pageCache
     // (call with pageCache::purgeCache())
     public static function purgeCache()
     {
-        if (is_dir($GLOBALS['config']['PAGECACHE']))
+        if (is_dir($GLOBALS['config']['CACHEDIR'] . 'page'))
         {
-            $handler = opendir($GLOBALS['config']['PAGECACHE']);
+            $handler = opendir($GLOBALS['config']['CACHEDIR'] . 'page');
             if ($handle!==false)
             {
                 while (($filename = readdir($handler))!==false)
                 {
-                    if (endsWith($filename,'.cache')) { unlink($GLOBALS['config']['PAGECACHE'].'/'.$filename); }
+                    if (endsWith($filename,'.cache')) { unlink($GLOBALS['config']['CACHEDIR'] . 'page'.'/'.$filename); }
                 }
                 closedir($handler);
             }

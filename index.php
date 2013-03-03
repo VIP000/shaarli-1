@@ -33,8 +33,6 @@ $GLOBALS['config']['HIDE_TIMESTAMPS'] = false;
 $GLOBALS['config']['ENABLE_THUMBNAILS'] = true;
 // Thumbnails cache directory.
 $GLOBALS['config']['CACHEDIR'] = 'cache';
-// Page cache directory.
-$GLOBALS['config']['PAGECACHE'] = 'pagecache';
 // Enable thumbnail caching. Disable to reduce webspace usage.
 $GLOBALS['config']['ENABLE_LOCALCACHE'] = true;
 
@@ -76,15 +74,6 @@ ini_set('upload_max_filesize', '16M');
 checkphpversion();
 error_reporting(E_ALL^E_WARNING);
 
- // Template directory.
-raintpl::$tpl_dir = "tpl/";
- // Cache directory.
-if (!is_dir('tmp')) {
-    mkdir('tmp', 0705);
-    chmod('tmp', 0705);
-}
-raintpl::$cache_dir = "tmp/";
-
 // Output buffering for the page cache.
 ob_start();
 
@@ -110,21 +99,19 @@ if (!is_dir($GLOBALS['config']['DATADIR'])) {
     mkdir($GLOBALS['config']['DATADIR'], 0705);
     chmod($GLOBALS['config']['DATADIR'], 0705);
 }
-if (!is_dir('tmp')) {
-    mkdir('tmp', 0705);
-    chmod('tmp', 0705);
-}
 if (!is_file($GLOBALS['config']['DATADIR'].'/.htaccess')) {
     file_put_contents($GLOBALS['config']['DATADIR'].'/.htaccess',"Allow from none\nDeny from all\n");
 }
-if ($GLOBALS['config']['ENABLE_LOCALCACHE']) {
-    if (!is_dir($GLOBALS['config']['CACHEDIR'])) {
-        mkdir($GLOBALS['config']['CACHEDIR'], 0705);
-        chmod($GLOBALS['config']['CACHEDIR'], 0705);
-    }
-    if (!is_file($GLOBALS['config']['CACHEDIR'].'/.htaccess')) {
-        file_put_contents($GLOBALS['config']['CACHEDIR'].'/.htaccess',"Allow from none\nDeny from all\n");
-    }
+if (!is_dir($GLOBALS['config']['CACHEDIR'])) {
+    mkdir($GLOBALS['config']['CACHEDIR'], 0705);
+    chmod($GLOBALS['config']['CACHEDIR'], 0705);
+}
+if (!is_dir($GLOBALS['config']['CACHEDIR'] . "/templates")) {
+    mkdir($GLOBALS['config']['CACHEDIR'] . "/templates", 0705);
+    chmod($GLOBALS['config']['CACHEDIR'] . "/templates", 0705);
+}
+if (!is_file($GLOBALS['config']['CACHEDIR'].'/.htaccess')) {
+    file_put_contents($GLOBALS['config']['CACHEDIR'].'/.htaccess',"Allow from none\nDeny from all\n");
 }
 
 // Run config screen if first run:
