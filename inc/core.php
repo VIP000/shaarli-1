@@ -326,9 +326,6 @@ function html_extract_title($html)
 // This function should NEVER be called if the file data/config.php exists.
 function install()
 {
-    // On free.fr host, make sure the /sessions directory exists, otherwise login will not work.
-    if (endsWith($_SERVER['SERVER_NAME'],'.free.fr') && !is_dir($_SERVER['DOCUMENT_ROOT'].'/sessions')) mkdir($_SERVER['DOCUMENT_ROOT'].'/sessions',0705);
-
     if (!empty($_POST['setlogin']) && !empty($_POST['setpassword']))
     {
         $tz = 'UTC';
@@ -361,11 +358,13 @@ function install()
 // Input: (optional) current timezone (can be 'UTC/UTC'). It will be pre-selected.
 // Output: array(html,js)
 // Example: list($htmlform,$js) = templateTZform('Europe/Paris');  // Europe/Paris pre-selected.
-// Returns array('','') if server does not support timezones list. (eg. php 5.1 on free.fr)
+// Returns array('','') if server does not support timezones list. (eg. PHP 5.1)
 function templateTZform($ptz=false)
 {
-    if (function_exists('timezone_identifiers_list')) // because of old php version (5.1) which can be found on free.fr
+    if (function_exists('timezone_identifiers_list'))
     {
+        // PHP 5.1 support.
+
         // Try to split the provided timezone.
         if ($ptz==false) { $l=timezone_identifiers_list(); $ptz=$l[0]; }
         $spos=strpos($ptz,'/'); $pcontinent=substr($ptz,0,$spos); $pcity=substr($ptz,$spos+1);
@@ -411,7 +410,7 @@ function templateTZform($ptz=false)
 function isTZvalid($continent,$city)
 {
     $tz = $continent.'/'.$city;
-    if (function_exists('timezone_identifiers_list')) // because of old php version (5.1) which can be found on free.fr
+    if (function_exists('timezone_identifiers_list')) // PHP 5.1 support.
     {
         if (in_array($tz, timezone_identifiers_list())) // it's a valid timezone ?
                     return true;
