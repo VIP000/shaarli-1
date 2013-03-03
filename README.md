@@ -3,10 +3,7 @@ Shaarli
 
 Shaarli is a minimalist delicious clone you can install on your own website.
 
-This is the fork, and original code can be found
-[here](http://sebsauvage.net/wiki/doku.php?id=php:shaarli).
-
-Requires PHP > 5.1.
+Requires PHP >= 5.1.
 
 Features
 --------
@@ -23,7 +20,7 @@ Features
 * Automatic conversion of URLs to clickable links in descriptions. Support for
   http/ftp/file/apt protocols.
 * Save links as public or private
-* 1-clic access to your private links/notes
+* 1-click access to your private links/notes
 * Browse links by page, filter by tag or use the full text search engine
 * Permalinks (with QR-Code) for easy reference
 * Tag cloud
@@ -39,25 +36,12 @@ Features
   (?utm_source...)
 * Shaarli is a bookmarking application, but you can use it for micro-blogging
   (like Twitter), a pastebin, an online notepad, a snippet repository, etc.
-* You will be automatically notified by a discreet popup if a new version is
-  available
 * Pages are easy to customize (using simple RainTPL templates)
 
-Example
--------
+Demo
+----
 
-You can find online example (from the original author) here:
-http://sebsauvage.net/links/
-
-Credits
--------
-
-Developer & maintainer: [sebsauvage](http://sebsauvage.net/)
-
-Shaarli visual design & logo : [idleman](http://blog.idleman.fr/)
-
-Shaarli logo typeface: “Comic Andy” used with the kind permission of
-[Andrew Polhill](http://thatguynamedandy.com/).
+You can find [online example here](http://links.kotur.org/).
 
 Installation
 ------------
@@ -67,6 +51,17 @@ Installation
 3. Access this URL in your browser
 4. Choose login, password, timezone and page title
 5. Save
+
+Credits
+-------
+
+This is the fork of the
+[original Shaarli](http://sebsauvage.net/wiki/doku.php?id=php:shaarli) by
+[sebsauvage](http://sebsauvage.net/) with the visual design by
+[idleman](http://blog.idleman.fr/).
+
+Shaarli logo typeface: "Comic Andy" used with the kind permission of
+[Andrew Polhill](http://thatguynamedandy.com/).
 
 Copyright
 ---------

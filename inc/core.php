@@ -1,4 +1,16 @@
 <?php
+/**
+ * Shaarli - Shaare your links!
+ * ----------------------------
+ *
+ * This file is part of Shaarli.
+ *
+ * Personal, minimalist, super-fast, no-database Delicious clone.
+ *
+ * Copyright (c) 2013 Nikola KOTUR (kotur.org)
+ * Copyright (c) 2011 Sébastien SAUVAGE (sebsauvage.net)
+ * Released under ZLIB licence, see COPYING file for more details.
+ */
 
 // Check php version
 function checkphpversion()
@@ -140,14 +152,14 @@ function serverUrl()
 }
 
 // Returns the absolute URL of current script, without the query.
-// (eg. http://sebsauvage.net/links/)
+// (eg. http://links.kotur.org/)
 function indexUrl()
 {
     return serverUrl() . ($_SERVER["SCRIPT_NAME"] == '/index.php' ? '/' : $_SERVER["SCRIPT_NAME"]);
 }
 
 // Returns the absolute URL of current script, WITH the query.
-// (eg. http://sebsauvage.net/links/?toto=titi&spamspamspam=humbug)
+// (eg. http://links.kotur.org/?toto=titi&spamspamspam=humbug)
 function pageUrl()
 {
     return indexUrl().(!empty($_SERVER["QUERY_STRING"]) ? '?'.$_SERVER["QUERY_STRING"] : '');

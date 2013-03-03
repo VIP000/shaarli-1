@@ -1,4 +1,16 @@
 <?php
+/**
+ * Shaarli - Shaare your links!
+ * ----------------------------
+ *
+ * This file is part of Shaarli.
+ *
+ * Personal, minimalist, super-fast, no-database Delicious clone.
+ *
+ * Copyright (c) 2013 Nikola KOTUR (kotur.org)
+ * Copyright (c) 2011 Sébastien SAUVAGE (sebsauvage.net)
+ * Released under ZLIB licence, see COPYING file for more details.
+ */
 
 // ------------------------------------------------------------------------------------------
 // Ouput the last 50 links in RSS 2.0 format.

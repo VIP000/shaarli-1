@@ -1,4 +1,16 @@
 <?php
+/**
+ * Shaarli - Shaare your links!
+ * ----------------------------
+ *
+ * This file is part of Shaarli.
+ *
+ * Personal, minimalist, super-fast, no-database Delicious clone.
+ *
+ * Copyright (c) 2013 Nikola KOTUR (kotur.org)
+ * Copyright (c) 2011 Sébastien SAUVAGE (sebsauvage.net)
+ * Released under ZLIB licence, see COPYING file for more details.
+ */
 
 // ------------------------------------------------------------------------------------------
 /* Data storage for links.
@@ -72,12 +84,34 @@ class linkdb implements Iterator, Countable, ArrayAccess
     {
         if (!file_exists($GLOBALS['config']['DATASTORE'])) // Create a dummy database for example.
         {
-             $this->links = array();
-             $link = array('title'=>'Shaarli - sebsauvage.net','url'=>'http://sebsauvage.net/wiki/doku.php?id=php:shaarli','description'=>'Welcome to Shaarli ! This is a bookmark. To edit or delete me, you must first login.','private'=>0,'linkdate'=>'20110914_190000','tags'=>'opensource software');
-             $this->links[$link['linkdate']] = $link;
-             $link = array('title'=>'My secret stuff... - Pastebin.com','url'=>'http://pastebin.com/smCEEeSn','description'=>'SShhhh!!  I\'m a private link only YOU can see. You can delete me too.','private'=>1,'linkdate'=>'20110914_074522','tags'=>'secretstuff');
-             $this->links[$link['linkdate']] = $link;
-             file_put_contents($GLOBALS['config']['DATASTORE'], PHPPREFIX.base64_encode(gzdeflate(serialize($this->links))).PHPSUFFIX); // Write database to disk
+            $this->links = array();
+            $link = array(
+                'title' => 'Shaarli',
+                'url' => shaarli_url,
+                'description' => 'Welcome to Shaarli! This is a bookmark. ' .
+                                 'To edit or delete me, you must first login.',
+                'private' => 0,
+                'linkdate' => '20110914_190000',
+                'tags' => 'opensource software'
+            );
+            $this->links[$link['linkdate']] = $link;
+            $link = array(
+                'title' => 'My secret stuff... - Pastebin.com',
+                'url' => 'http://pastebin.com/smCEEeSn',
+                'description' => 'SShhhh!!  I\'m a private link only YOU can see. ' .
+                                 'You can delete me too.',
+                'private' => 1,
+                'linkdate' => '20110914_074522',
+                'tags' => 'secret documents'
+            );
+            $this->links[$link['linkdate']] = $link;
+            // Write database to the disk.
+            file_put_contents(
+                $GLOBALS['config']['DATASTORE'],
+                PHPPREFIX.base64_encode(
+                    gzdeflate(serialize($this->links))
+                ).PHPSUFFIX
+            );
         }
     }
 

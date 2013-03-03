@@ -1,16 +1,21 @@
 <?php
-// Shaarli 0.0.40 beta - Shaare your links...
-// The personal, minimalist, super-fast, no-database delicious clone. By sebsauvage.net
-// http://sebsauvage.net/wiki/doku.php?id=php:shaarli
-// Licence: http://www.opensource.org/licenses/zlib-license.php
-// Requires: php 5.1.x  (but autocomplete fields will only work if you have php 5.2.x)
-// -----------------------------------------------------------------------------------------------
+/**
+ * Shaarli - Shaare your links!
+ * ----------------------------
+ *
+ * This file is part of Shaarli.
+ *
+ * Personal, minimalist, super-fast, no-database Delicious clone.
+ *
+ * Copyright (c) 2013 Nikola KOTUR (kotur.org)
+ * Copyright (c) 2011 Sébastien SAUVAGE (sebsauvage.net)
+ * Released under ZLIB licence, see COPYING file for more details.
+ */
 
 /*
 Default parameters. You can override these parameters by creating a file
 config/options.php and placing them inside.
 */
-
 // Data subdirectory.
 $GLOBALS['config']['DATADIR'] = 'data';
 // Configuration file.
@@ -54,6 +59,7 @@ session_set_cookie_params($cookie['lifetime'],dirname($_SERVER["SCRIPT_NAME"]).'
 
 // Shaarli constants.
 define('shaarli_version','0.0.40 beta');
+define('shaarli_url', 'https://github.com/kotnik/shaarli');
 define('PHPPREFIX','<?php /* '); // Prefix to encapsulate data in php code.
 define('PHPSUFFIX',' */ ?>'); // Suffix to encapsulate data in php code.
 

@@ -1,4 +1,16 @@
 <?php
+/**
+ * Shaarli - Shaare your links!
+ * ----------------------------
+ *
+ * This file is part of Shaarli.
+ *
+ * Personal, minimalist, super-fast, no-database Delicious clone.
+ *
+ * Copyright (c) 2013 Nikola KOTUR (kotur.org)
+ * Copyright (c) 2011 Sébastien SAUVAGE (sebsauvage.net)
+ * Released under ZLIB licence, see COPYING file for more details.
+ */
 
 // ------------------------------------------------------------------------------------------
 /* This class is in charge of building the final page.
@@ -6,7 +18,6 @@
    p = new pageBuilder;
    p.assign('myfield','myvalue');
    p.renderPage('mytemplate');
-
 */
 class pageBuilder
 {
@@ -27,6 +38,7 @@ class pageBuilder
         $this->tpl->assign('searchcrits',$searchcrits);
         $this->tpl->assign('source',indexUrl());
         $this->tpl->assign('version',shaarli_version);
+        $this->tpl->assign('shaarli_url',shaarli_url);
         $this->tpl->assign('scripturl',indexUrl());
         $this->tpl->assign('pagetitle','Shaarli');
         $this->tpl->assign('privateonly',!empty($_SESSION['privateonly'])); // Show only private links ?
