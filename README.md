@@ -27,9 +27,6 @@ Features
 * Browse links by page, filter by tag or use the full text search engine
 * Permalinks (with QR-Code) for easy reference
 * Tag cloud
-* Picture wall (which can be filtered by tag or text search)
-* “Links of the day” Newspaper-like digest, browsable by day.
-* “Daily” RSS feed: Get each day a digest of all new links.
 * RSS and ATOM feeds (which can be filtered by tag or text search)
 * PubSubHubbub protocol support
 * Easy backup (Data stored in a single file)
