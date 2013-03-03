@@ -11,29 +11,6 @@ function checkphpversion()
     }
 }
 
-// Checks if an update is available for Shaarli.
-// (at most once a day, and only for registered user.)
-// Output: '' = no new version.
-//         other= the available version.
-function checkUpdate()
-{
-    if (!isLoggedIn()) return ''; // Do not check versions for visitors.
-
-    // Get latest version number at most once a day.
-    if (!is_file($GLOBALS['config']['UPDATECHECK_FILENAME']) || (filemtime($GLOBALS['config']['UPDATECHECK_FILENAME'])<time()-($GLOBALS['config']['UPDATECHECK_INTERVAL'])))
-    {
-        $version=shaarli_version;
-        list($httpstatus,$headers,$data) = getHTTP('http://sebsauvage.net/files/shaarli_version.txt',2);
-        if (strpos($httpstatus,'200 OK')!==false) $version=$data;
-        // If failed, nevermind. We don't want to bother the user with that.
-        file_put_contents($GLOBALS['config']['UPDATECHECK_FILENAME'],$version); // touch file date
-    }
-    // Compare versions:
-    $newestversion=file_get_contents($GLOBALS['config']['UPDATECHECK_FILENAME']);
-    if (version_compare($newestversion,shaarli_version)==1) return $newestversion;
-    return '';
-}
-
 // -----------------------------------------------------------------------------------------------
 // Simple cache system (mainly for the RSS/ATOM feeds).
 

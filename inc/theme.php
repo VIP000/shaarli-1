@@ -20,7 +20,6 @@ class pageBuilder
     private function initialize()
     {
         $this->tpl = new RainTPL;
-        $this->tpl->assign('newversion',checkUpdate());
         $this->tpl->assign('feedurl',htmlspecialchars(indexUrl()));
         $searchcrits=''; // Search criteria
         if (!empty($_GET['searchtags'])) $searchcrits.='&searchtags='.urlencode($_GET['searchtags']);

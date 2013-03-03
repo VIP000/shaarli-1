@@ -37,10 +37,6 @@ $GLOBALS['config']['CACHEDIR'] = 'cache';
 $GLOBALS['config']['PAGECACHE'] = 'pagecache';
 // Enable thumbnail caching. Disable to reduce webspace usage.
 $GLOBALS['config']['ENABLE_LOCALCACHE'] = true;
-// For updates check of Shaarli.
-$GLOBALS['config']['UPDATECHECK_FILENAME'] = $GLOBALS['config']['DATADIR'].'/lastupdatecheck.txt';
-// Updates check frequency for Shaarli. 86400 seconds=24 hours
-$GLOBALS['config']['UPDATECHECK_INTERVAL'] = 86400 ;
 
 // Optional config file.
 if ($conf_file = $GLOBALS['config']['DATADIR'].'/options.php' and is_file($conf_file)) {
